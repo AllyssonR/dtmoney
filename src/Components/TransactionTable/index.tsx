@@ -1,5 +1,10 @@
+import { useEffect } from "react";
 import { Container } from "./styles";
+import { api } from "../../Services/api";
 export function TransactionTable() {
+  useEffect(() => {
+    api.get("transactions").then((data) => console.log(data));
+  }, []);
   return (
     <Container>
       <table>
@@ -23,7 +28,7 @@ export function TransactionTable() {
             <td className="withdraw"> -R$1.100</td>
             <td>Desemvolvimento</td>
             <td>20/02/2021</td>
-          </tr>{" "}
+          </tr>
         </tbody>
       </table>
     </Container>
