@@ -1,5 +1,8 @@
-import { Container } from "./styles";
+import { Container, TransactionTypeContainer, RadioBox } from "./styles";
+import incomeImg from "../../assets/income.svg";
+import outcomeImg from "../../assets/outcome.svg";
 import Modal from "react-modal";
+import { useState } from "react";
 interface NewTransactionProps {
   isOpen: boolean;
   onRequestClose: () => void;
@@ -8,18 +11,44 @@ export function NewTransactionModal({
   isOpen,
   onRequestClose,
 }: NewTransactionProps) {
+  const [type, setType] = useState("deposit");
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       overlayClassName="react-modal-ovelay"
-      className=".react-modal-content"
+      className="react-modal-content"
     >
       <Container>
         <h2>Cadastrar Transaçao</h2>
 
         <input placeholder="Titulo" />
         <input type="number" placeholder="Valor" />
+
+        <TransactionTypeContainer>
+          <RadioBox
+            type="button"
+            onClick={() => {
+              setType("deposit");
+            }}
+            isActive={type === "deposit"}
+            activeColor="green"
+          >
+            <img src={incomeImg} alt="Entrada" />
+            <span>Entrada</span>
+          </RadioBox>
+          <RadioBox
+            type="button"
+            onClick={() => {
+              setType("withdraw");
+            }}
+            isActive={type === "withdraw"}
+            activeColor="red"
+          >
+            <img src={outcomeImg} alt="Saida" />
+            <span>Saida</span>
+          </RadioBox>
+        </TransactionTypeContainer>
         <input placeholder="Categoria" />
         <button type="submit">Cadastrar</button>
       </Container>
